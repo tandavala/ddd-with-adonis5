@@ -8,7 +8,10 @@ import { UserCommand } from './user.commad'
 
 export class UserService {
   constructor(private userRepository: UserRepository) {
-    this.userRepository.build()
+  }
+
+  public async list() {
+    return await this.userRepository.query()
   }
 
   public async execute(command: UserCommand) {
