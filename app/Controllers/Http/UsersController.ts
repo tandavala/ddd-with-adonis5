@@ -9,6 +9,18 @@ export default class UsersController {
   constructor() {
     this.userService = new UserService(new UserRepository())
   }
+
+  public async index({ request, response }: HttpContextContract) {
+    const requestBody = request.all()
+    try {
+      const data = await this.userService.list()
+
+      return response.status(201).json({ data })
+    } catch (error: any) {
+      return response.status(400).json({ message: error.message })
+    }
+  }
+
   public async store({ request, response }: HttpContextContract) {
     const requestBody = request.all()
     try {
